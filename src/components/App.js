@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import SoftwareList from "./SoftwareToolsManage/SoftwareList";
 import SoftwareView from "./SoftwareToolsManage/SoftWareView";
+import Register from "./Register/Register";
 
 //css
 import '../css/new.css';
@@ -21,6 +22,7 @@ class App extends Component {
         <Route exact path="/" component={LoginForm} />
         <Route exact path="/SoftwareList" component={SoftwareList} />
         <Route exact path="/SoftwareView/:swtcode" component={SoftwareView} />
+        <Route exact path="/register" component={Register} />
         <Footer />
       </div>
     );
