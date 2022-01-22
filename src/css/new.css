@@ -164,6 +164,7 @@ body {
 
 .ct1 {
   max-width: 1280px;
+  margin: 0 auto;
 }
 .ct2 {
   max-width: 724px;
@@ -270,12 +271,6 @@ body {
 }
 .bt_c2:hover {
   background: #2c2c92;
-}
-
-.sortButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /*제목*/
@@ -3463,4 +3458,8 @@ td.check_ty1 label:after {
 
 .mb0 {
   margin-bottom: 0 !important;
+}
+
+.border_validate_err {
+  border: 1px solid red !important;
 }

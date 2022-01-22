@@ -1,7 +1,71 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import cookie from 'react-cookies';
+import Swal from 'sweetalert2';
+import $ from 'jquery';
 
 class LoginForm extends Component {
+  submitClick = e => {
+    this.email_val = $("#email.val").val();
+    this.pwd_val = $("#pwd.val").val();
+    if (this.email_val === "" || this.pwd_val === "") {
+      this.sweetalert("이메일과 비밀번호를 확인해주세요.", "", "info", "닫기");
+    } else {
+      axios
+        .post("/api/LoginForm?type=signin", {
+          is_Email: this.email_val,
+          is_Password: this.pwd_val,
+        })
+        .then(response => {
+          var userid = response.data.json[0].useremail;
+          var username = response.data.json[0].username;
+          var upw = response.data.json[0].userpassword;
+
+          if (userid != null && userid != "") {
+            this.sweetalert("로그인 되었습니다.", "", "info", "닫기");
+            const expries = new Date();
+            expries.setMinutes(expries.getMinutes() + 60);
+
+            axios
+              .post("/api/LoginForm?type=SessionState", {
+                is_Email: userid,
+                is_UserName: username,
+              })
+              .then(response => {
+                cookie.save("userid", response.data.token1, { path: "/", expries });
+                cookie.save("username", response.data.token2, { path: "/", expries });
+                cookie.save("userpassword", upw, { path: "/", expries });
+              })
+              .catch(error => {
+                this.sweetalert("작업중 오류가 발생했습니다.", error, "error", "닫기");
+              });
+
+            setTimeout(
+              function () {
+                window.location.href = "/SoftwareList";
+              }.bind(this),
+              1000,
+            );
+          } else {
+            this.sweetalert("이메일과 비밀번호를 확인해주세요.", "", "info", "닫기");
+          }
+        })
+        .catch(error => {
+          this.sweetalert("이메일과 비밀번호를 확인해주세요.", "", "info", "닫기");
+        });
+    }
+  };
+
+  sweetalert = (title, contents, icon, confirmButtonText) => {
+    Swal.fire({
+      title: title,
+      text: contents,
+      icon: icon,
+      confirmButtonText: confirmButtonText,
+    });
+  };
+  
   render() {
     return (
       <section className="main">
@@ -34,13 +98,13 @@ class LoginForm extends Component {
               </div>
               <ul className="af">
                 <li>
-                  <Link to={"/register_check"}>회원가입</Link>
+                  <Link to={"/register"}>회원가입</Link>
                 </li>
                 <li className="pwr_b" onClick={this.pwdResetClick}>
                   <a href="#n">비밀번호 재설정</a>
                 </li>
               </ul>
-              <button className="s_bt" type="submit" onClick={this.submitClick}>
+              <button className="s_bt" type="" onClick={this.submitClick}>
                 로그인
               </button>
             </form>

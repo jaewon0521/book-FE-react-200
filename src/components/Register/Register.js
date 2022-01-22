@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import $ from "jquery";
@@ -6,10 +6,9 @@ import $ from "jquery";
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
-    }
+    this.state = {};
   }
+
   submitClick = async (type, e) => {
     this.email_val_checker = $("#email_val").val();
     this.email2_val_checker = $("#email2_val").val();
@@ -22,7 +21,7 @@ class Register extends Component {
     this.phone2_val_checker = $("#phone2_val").val();
     this.phone3_val_checker = $("#phone3_val").val();
 
-    this.fnValidate = (e) => {
+    this.fnValidate = e => {
       var pattern1 = /[0-9]/;
       var pattern2 = /[a-zA-Z]/;
       var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
@@ -124,7 +123,7 @@ class Register extends Component {
       $("#phone2_val").removeClass("border_validate_err");
       $("#phone3_val").removeClass("border_validate_err");
       return true;
-    }
+    };
 
     if (this.fnValidate()) {
       this.state.full_email = this.email_val_checker + "@" + this.email2_val_checker;
@@ -143,6 +142,7 @@ class Register extends Component {
               $("#email_val").removeClass("border_validate_err");
               $("#email2_val").removeClass("border_validate_err");
               this.fnSignInsert("signup", e);
+              console.log(e);
             }
           } catch (error) {
             this.sweetalert("작업중 오류가 발생하였습니다.", error, "error", "닫기");
@@ -152,7 +152,71 @@ class Register extends Component {
           return false;
         });
     }
-  }
+
+    this.fnSignInsert = async (type, e) => {
+      var jsonstr = $("form[name='frm']").serialize();
+      jsonstr = decodeURIComponent(jsonstr); // json Data 한글 반환
+      var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, "");
+      Json_form = '{"' + Json_form.replace(/\&/g, '","').replace(/=/gi, '":"') + '"}';
+
+      try {
+        const response = await fetch("/api/register?type=" + type, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: Json_form,
+        });
+        const body = await response.text();
+        if (body === "succ") {
+          this.sweetalert("회원가입이 완료되었습니다.", "", "info", "닫기");
+          this.props.history.push("/");
+        } else {
+          this.sweetalert("작업중 오류가 발생하였습니다.", body, "error", "닫기");
+        }
+      } catch (error) {
+        this.sweetalert("작업중 오류가 발생하였습니다.", error, "error", "닫기");
+      }
+    };
+  };
+
+  emailKeyPress = e => {
+    $("#email_val").removeClass("border_validate_err");
+  };
+
+  pwdKeyPress = e => {
+    $("#pwd_val").removeClass("border_validate_err");
+  };
+
+  pwdCnfKeyPress = e => {
+    $("#pwd_cnf_val").removeClass("border_validate_err");
+  };
+
+  nameKeyPress = e => {
+    $("#name_val").removeClass("border_validate_err");
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+  };
+
+  mustNumber = id => {
+    var pattern1 = /[0-9]/;
+    var str = $("#" + id).val();
+    if (!pattern1.test(str.substr(str.length - 1, 1))) {
+      $("#" + id).val(str.substr(0, str.length - 1));
+    }
+  };
+
+  sweetalert = (title, contents, icon, confirmButtonText) => {
+    Swal.fire({
+      title: title,
+      text: contents,
+      icon: icon,
+      confirmButtonText: confirmButtonText,
+    });
+  };
+
   render() {
     return (
       <div>
