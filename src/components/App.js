@@ -24,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .post("/api/LoginForm?type=SessionConfirm", {
+      .post("/api/LoginForm?type=sessionConfirm", {
         token1: cookie.load("userid"),
         token2: cookie.load("username"),
       })
@@ -38,7 +38,7 @@ class App extends Component {
               is_Token: password,
             })
             .then(response => {
-              if (response.date.json[0].useremail === undefined) {
+              if (response.data.json[0].useremail === undefined) {
                 this.noPermission();
               }
             })
@@ -57,6 +57,12 @@ class App extends Component {
       this.remove_cookie();
       window.location.href = "/login/#nocookie";
     }
+  };
+
+  remove_cookie = e => {
+    cookie.remove("userid", { path: "/" });
+    cookie.remove("username", { path: "/" });
+    cookie.remove("userpassword", { path: "/" });
   };
 
   remove_cookie = e => {
