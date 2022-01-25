@@ -27,11 +27,11 @@ class Header extends Component {
       cookie.save("username", cookie_usernm, { path: "/", expires });
       cookie.save("userpassword", cookie_password, { path: "/", expires });
 
-      // $('.menulist').show()
-      // $('.hd_top').show()
+      $('.menulist').show()
+      $('.hd_top').show()
     } else {
-      // $('.menulist').hide()
-      // $('.hd_top').hide()
+      $('.menulist').hide()
+      $('.hd_top').hide()
     }
     this.callSessionInfoApi();
   }
@@ -44,6 +44,7 @@ class Header extends Component {
       })
       .then(response => {
         this.setState({ usernm: response.data.token2 });
+        debugger
       })
       .catch(error => {
         this.sweetalert("작업중 오류가 발생하였습니다.", error, "error", "닫기");
@@ -92,7 +93,7 @@ class Header extends Component {
             </ul>
             <div className="hd_right">
               <p>
-                <span>'홍길동'</span>님 반갑습니다.
+                <span>'{ this.state.usernm}'</span>님 반갑습니다.
               </p>
             </div>
           </div>

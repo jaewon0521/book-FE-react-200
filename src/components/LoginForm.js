@@ -33,7 +33,6 @@ class LoginForm extends Component {
                 is_UserName: username,
               })
               .then(response => {
-                debugger;
                 cookie.save("userid", response.data.token1, { path: "/", expires });
                 cookie.save("username", response.data.token2, { path: "/", expires });
                 cookie.save("userpassword", upw, { path: "/", expires });
@@ -41,7 +40,6 @@ class LoginForm extends Component {
               .catch(error => {
                 this.sweetalert("작업중 오류가 발생하였습니다.", error, "error", "닫기");
               });
-            debugger
             setTimeout(
               function () {
                 window.location.href = "/SoftwareList";
