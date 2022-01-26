@@ -24,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .post("/api/LoginForm?type=sessionConfirm", {
+      .post("/api/LoginForm?type=SessionConfirm", {
         token1: cookie.load("userid"),
         token2: cookie.load("username"),
       })

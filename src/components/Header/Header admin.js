@@ -44,7 +44,6 @@ class Header extends Component {
       })
       .then(response => {
         this.setState({ usernm: response.data.token2 });
-        debugger
       })
       .catch(error => {
         this.sweetalert("작업중 오류가 발생하였습니다.", error, "error", "닫기");
