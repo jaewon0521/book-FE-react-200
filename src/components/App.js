@@ -15,6 +15,7 @@ import LoginForm from "./LoginForm";
 import SoftwareList from "./SoftwareToolsManage/SoftwareList";
 import SoftwareView from "./SoftwareToolsManage/SoftWareView";
 import Register from "./Register/Register";
+import PwChangeForm from "./PwChangeForm";
 
 class App extends Component {
   constructor(props) {
@@ -80,6 +81,7 @@ class App extends Component {
         <Route exact path="/SoftwareList" component={SoftwareList} />
         <Route exact path="/SoftwareView/:swtcode" component={SoftwareView} />
         <Route exact path="/register" component={Register} />
+        <Route path="/PwChangeForm/:email/:token" component={PwChangeForm} />
         <Footer />
       </div>
     );
