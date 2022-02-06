@@ -154,6 +154,7 @@ class Register extends Component {
     }
 
     this.fnSignInsert = async (type, e) => {
+      // json stringify refactoring
       var jsonstr = $("form[name='frm']").serialize();
       jsonstr = decodeURIComponent(jsonstr); // json Data 한글 반환
       var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, "");

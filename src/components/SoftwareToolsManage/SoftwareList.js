@@ -36,7 +36,6 @@ class SoftwareList extends Component {
 
   deleteSwtool = e => {
     var event_target = e.target;
-    console.log(event_target);
 
     this.sweetalertDelete(
       "정말 삭제하시겠습니까?",

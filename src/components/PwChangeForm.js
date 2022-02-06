@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import $ from "jquery";
 import axios from "axios";
-import debug from "debug";
 
 class PwChangeForm extends Component {
   constructor(props) {
@@ -82,11 +81,10 @@ class PwChangeForm extends Component {
     };
 
     if (this.fnValidate()) {
+      // json stringify refactoring
       var jsonstr = $("form[name='frm']").serialize();
-      console.log(`jsonstr : ${jsonstr}`);
       jsonstr = decodeURIComponent(jsonstr);
       var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, "");
-      console.log(`Json_form : ${Json_form}`);
       Json_form = '{"' + Json_form.replace(/\&/g, '","').replace(/=/gi, '":"') + '"}';
 
       try {
