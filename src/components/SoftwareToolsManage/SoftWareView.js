@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
 import Swal from "sweetalert2";
+import softApi, { jsonForm } from "../../util/apiIndex";
 
 class SoftwareView extends Component {
   constructor(props) {
@@ -107,19 +108,19 @@ class SoftwareView extends Component {
     };
 
     if (this.fnValidate()) {
-      var jsonstr = $("form[name='frm']").serialize();
-      jsonstr = decodeURIComponent(jsonstr);
-      var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, "");
-      Json_form = '{"' + Json_form.replace(/\&/g, '","').replace(/=/gi, '":"') + '"}';
+      let jsonstr = $("form[name='frm']").serialize();
+      // let Json_form = jsonForm(jsonstr);
 
       try {
-        const response = await fetch("/api/Swtool?type=" + type, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: Json_form,
-        });
+
+        const response = await softApi.createSwtool(type, jsonstr);
+        // const response = await fetch("/api/Swtool?type=" + type, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: Json_form,
+        // });
         const body = await response.text();
         if (body == "succ") {
           if (type == "save") {
@@ -134,10 +135,10 @@ class SoftwareView extends Component {
             1500,
           );
         } else {
-          alert("작업중 오류가 발생하였습니다.");
+          alert("response error 작업중 오류가 발생하였습니다.");
         }
       } catch (error) {
-        alert("작업중 오류가 발생하였습니다.");
+        alert("try error 작업중 오류가 발생하였습니다.");
       }
     }
   };

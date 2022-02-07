@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import $ from "jquery";
 import axios from "axios";
+import { jsonForm } from "../util/apiIndex"
 
 class PwChangeForm extends Component {
   constructor(props) {
@@ -82,10 +83,8 @@ class PwChangeForm extends Component {
 
     if (this.fnValidate()) {
       // json stringify refactoring
-      var jsonstr = $("form[name='frm']").serialize();
-      jsonstr = decodeURIComponent(jsonstr);
-      var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, "");
-      Json_form = '{"' + Json_form.replace(/\&/g, '","').replace(/=/gi, '":"') + '"}';
+      let jsonstr = $("form[name='frm']").serialize();
+      let Json_form = jsonForm(jsonstr);
 
       try {
         const response = await fetch("/api/register?type=pwdmodify", {
@@ -96,6 +95,7 @@ class PwChangeForm extends Component {
           body: Json_form,
         });
         const body = await response.text();
+        
         if (body == "succ") {
           this.sweetalertSucc("비밀번호 수정이 완료되었습니다.", false);
           setTimeout(
