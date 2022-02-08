@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
 import Swal from "sweetalert2";
-import softApi, { jsonForm } from "../../util/apiIndex";
+import softApi from "../../util/apiIndex";
 
 class SoftwareView extends Component {
   constructor(props) {
@@ -113,14 +113,13 @@ class SoftwareView extends Component {
 
       try {
 
-        const response = await softApi.createSwtool(type, jsonstr);
-        // const response = await fetch("/api/Swtool?type=" + type, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: Json_form,
-        // });
+        const response = await fetch("/api/Swtool?type=" + type, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: Json_form,
+        });
         const body = await response.text();
         if (body == "succ") {
           if (type == "save") {
