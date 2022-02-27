@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
 import Swal from "sweetalert2";
-import softApi from "../../util/apiIndex";
+import { jsonForm } from "../../util/apiIndex";
 
 class SoftwareView extends Component {
   constructor(props) {
@@ -109,7 +109,7 @@ class SoftwareView extends Component {
 
     if (this.fnValidate()) {
       let jsonstr = $("form[name='frm']").serialize();
-      // let Json_form = jsonForm(jsonstr);
+      let Json_form = jsonForm(jsonstr);
 
       try {
 

@@ -160,6 +160,8 @@ class Register extends Component {
       var Json_form = JSON.stringify(jsonstr).replace(/\"/gi, "");
       Json_form = '{"' + Json_form.replace(/\&/g, '","').replace(/=/gi, '":"') + '"}';
 
+      console.log(Json_form);
+
       try {
         const response = await fetch("/api/register?type=" + type, {
           method: "POST",
