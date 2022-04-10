@@ -66,12 +66,6 @@ class App extends Component {
     cookie.remove("userpassword", { path: "/" });
   };
 
-  remove_cookie = e => {
-    cookie.remove("userid", { path: "/" });
-    cookie.remove("username", { path: "/" });
-    cookie.remove("userpassword", { path: "/" });
-  };
-
   render() {
     return (
       <div className="App">
