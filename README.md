@@ -29,8 +29,5 @@ npm run dev
 ```
 
 ## 느낀점
-react를 처음 접하여 익숙하지 않은 문법이었지만 코드 한줄 한줄 설명이 되어 있어 이해하기 쉬웠다.
+https://bejewled-pull-5d9.notion.site/200-7602c78de08d4575ac9c1bc1641a4cbd
 
-react 보단 node express를 좀 더 중점적으로 다루는 것 같다.
-
-class 컴포넌트로 프로젝트를 진행하여 function 컴포넌트의 필요성을 느끼게 되었다.
